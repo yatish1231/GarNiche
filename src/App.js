@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import Main from './components/MainComponent';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
 class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Main/>
+      <BrowserRouter>
+        <div className="App">
+          <Main />
 
-        {/* <header className="App-header">
+          {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             edit <code>src/App.js</code> and save to reload.
@@ -23,7 +25,8 @@ class App extends Component {
             Learn React
         </a>
         </header> */}
-      </div>
+        </div>
+      </BrowserRouter>
     );
   }
 }

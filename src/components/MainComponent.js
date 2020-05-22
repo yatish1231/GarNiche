@@ -4,31 +4,39 @@ import Menu from './MenuComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import DishDetail from './DishdetailComponent';
-import {DISHES} from '../shared/dishes'
+import { DISHES } from '../shared/dishes'
+import Home from './HomeComponent';
 import '../App.css';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 class Main extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      dishes: DISHES,
-      selectedDish: null
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            dishes: DISHES,
+            selectedDish: null
+        };
+    }
 
-  onDishSelect(dishId) {
-    this.setState({ selectedDish: dishId});
-  }
+    onDishSelect(dishId) {
+        this.setState({ selectedDish: dishId });
+    }
 
-  render() {
-    return (
-      <div>
-          <Header/>
-          <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />
-          <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}/>
-          <Footer/>
-        {/* <header className="App-header">
+    render() {
+
+        const HomePage = () => { return (<Home />); }
+
+        return (
+            <div>
+                <Header />
+                <Switch>
+                    <Route path="/home" component={HomePage} />
+                    <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
+                    <Redirect to="/home"/>
+                </Switch>
+                <Footer />
+                {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             edit <code>src/App.js</code> and save to reload.
@@ -42,9 +50,9 @@ class Main extends Component {
             Learn React
         </a>
         </header> */}
-      </div>
-    );
-  }
+            </div>
+        );
+    }
 }
 
 export default Main;
