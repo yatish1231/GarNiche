@@ -2,16 +2,21 @@ import React, { Component } from 'react';
 import Main from './components/MainComponent';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
+import { Provider } from 'react-redux';
+import { ConfigureStore } from './redux/configureStore'
+
+const store = ConfigureStore();
 
 class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          <Main />
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="App">
+            <Main />
 
-          {/* <header className="App-header">
+            {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             edit <code>src/App.js</code> and save to reload.
@@ -25,8 +30,9 @@ class App extends Component {
             Learn React
         </a>
         </header> */}
-        </div>
-      </BrowserRouter>
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

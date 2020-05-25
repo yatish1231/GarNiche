@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class DishDetail extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     renderDish(dish) {
         if (dish != null) {
@@ -26,11 +23,10 @@ class DishDetail extends Component {
         }
     }
 
-    renderComments(dish) {
-        if (dish != null) {
-            const comments = dish.comments;
+    renderComments(comments) {
+        if (comments != null) {
             return (
-                <div key={dish.id}>
+                <div>
                     <h4>Comments</h4>
                     <div className="list-unstyled">
                         {comments.map(comment => {
@@ -56,12 +52,22 @@ class DishDetail extends Component {
     render() {
         return (
             <div className="container">
+                <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{this.props.dish.name}</h3>
+                        <hr />
+                    </div>
+                </div>
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-5 m-1">
                         {this.renderDish(this.props.dish)}
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        {this.renderComments(this.props.dish)}
+                        {this.renderComments(this.props.comments)}
                     </div>
                 </div>
             </div>
