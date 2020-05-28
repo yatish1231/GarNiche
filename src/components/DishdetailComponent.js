@@ -3,74 +3,93 @@ import { Card, CardImg, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbIte
 import { Link } from 'react-router-dom';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { LocalForm, Control, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
-class DishDetail extends Component {
-
-    renderDish(dish) {
-        if (dish != null) {
-            return (
-                <Card key={dish.id}>
-                    <CardImg top src={dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
-            );
-        }
-        else {
-            return (
-                <div></div>
-            );
-        }
+function RenderDish({ dish }) {
+    if (dish != null) {
+        return (
+            <Card key={dish.id}>
+                <CardImg top src={dish.image} alt={dish.name} />
+                <CardBody>
+                    <CardTitle>{dish.name}</CardTitle>
+                    <CardText>{dish.description}</CardText>
+                </CardBody>
+            </Card>
+        );
     }
+    else {
+        return (
+            <div></div>
+        );
+    }
+}
 
-    renderComments(comments) {
-        if (comments != null) {
-            return (
-                <div>
-                    <h4>Comments</h4>
-                    <div className="list-unstyled">
-                        {comments.map(comment => {
-                            const dateId = new Date(comment.date);
-                            return (
-                                <li key={comment.id}>
-                                    <div><p><strong>{comment.comment}</strong></p></div>
-                                    <div><p> -- {comment.author}, {dateId.toLocaleString('default', { month: 'short' })} {dateId.getDate()}, {dateId.getFullYear()}</p></div>
-                                </li>
-                            );
-                        })}
-                    </div>
-                    <CommentForm></CommentForm>
+function RenderComments({ comments, addComment, dishId }) {
+    if (comments != null) {
+        return (
+            <div>
+                <h4>Comments</h4>
+                <div className="list-unstyled">
+                    {comments.map(comment => {
+                        const dateId = new Date(comment.date);
+                        return (
+                            <li key={comment.id}>
+                                <div><p><strong>{comment.comment}</strong></p></div>
+                                <div><p> -- {comment.author}, {dateId.toLocaleString('default', { month: 'short' })} {dateId.getDate()}, {dateId.getFullYear()}</p></div>
+                            </li>
+                        );
+                    })}
                 </div>
-            );
-        }
-        else {
-            return (
-                <div></div>
-            );
-        }
+                <CommentForm addComment={addComment} dishId={dishId} />
+            </div>
+        );
     }
-
-    render() {
+    else {
+        return (
+            <div></div>
+        );
+    }
+}
+function DishDetail(props) {
+    if (props.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <Loading />
+                </div>
+            </div>
+        )
+    }
+    else if (props.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        )
+    }
+    else if (props.dish != null) {
         return (
             <div className="container">
                 <div className="row">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
-                        <h3>{this.props.dish.name}</h3>
+                        <h3>{props.dish.name}</h3>
                         <hr />
                     </div>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-5 m-1">
-                        {this.renderDish(this.props.dish)}
+                        {/* {renderDish(props.dish)} */}
+                        <RenderDish dish={props.dish} />
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        {this.renderComments(this.props.comments)}
+                        <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
+                        {/* {renderComments(props.comments, props.addComment, props.dish.id)} */}
                     </div>
                 </div>
             </div>
@@ -105,7 +124,7 @@ class CommentForm extends Component {
     }
 
     onSubmit(values) {
-        alert('current state' + JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -131,7 +150,7 @@ class CommentForm extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="name">Your name</label>
-                                    <Control.text id="name" model=".name" name="name"
+                                    <Control.text id="name" model=".author" name="author"
                                         className="form-control"
                                         placeholder="Enter your full name"
                                         validators={{
@@ -139,7 +158,7 @@ class CommentForm extends Component {
                                         }}
                                     />
                                     <Errors
-                                        model=".name"
+                                        model=".author"
                                         className="form-control-feedback text-danger"
                                         show="touched"
                                         messages={{
