@@ -1,6 +1,8 @@
 import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron, Modal, ModalHeader, ModalBody, Button, FormGroup, Input, Label, Form } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons'
 
 class Header extends Component {
     constructor(props) {
@@ -28,42 +30,45 @@ class Header extends Component {
 
     render() {
         return (
-            <div>
-                <Navbar dark expand="md">
-                    <div className="container">
+            <div className="header-component container-fluid">
+                <div className="row">
+                    <div className="col text-center d-none d-md-block">
+                        <a id="brand-text">garniche</a>
+                    </div>
+                </div>
+                <Navbar dark expand="md" className="navbar-fluid">
+                    <div className="container-fluid">
+                        <NavbarBrand className="mr-auto d-block d-md-none" href="/"><a id="brand-text">garniche</a></NavbarBrand>
                         <NavbarToggler onClick={this.toggleNav} />
-                        <NavbarBrand className="mr-auto" href="/"><img src='assets/images/logo.png' height="30" width="41" alt='Ristorante Con Fusion' /></NavbarBrand>
                         <Collapse isOpen={this.state.isNavOpen} navbar>
-                            <Nav navbar>
-                                <NavItem>
+                            <Nav navbar className="mx-auto">
+                                <NavItem className="mx-2">
                                     <NavLink className="nav-link" to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink className="nav-link" to='/aboutus'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
-                                </NavItem>
-                                <NavItem>
+                                <NavItem className="mx-2">
                                     <NavLink className="nav-link" to='/menu'><span className="fa fa-list fa-lg"></span> Menu</NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
+                                <NavItem className="mx-2">
+                                    <NavLink className="nav-link" to='/aboutus'><span className="fa fa-info fa-lg"></span> About Me</NavLink>
                                 </NavItem>
-                            </Nav>
-                            <Nav className="ml-auto" navbar>
-                                <NavItem>
-                                    <Button onClick={this.toggleModal} className="btn-outline-light">
-                                        <span className="fa fa-sign-in fa-md"></span> Login
+                                <NavItem className="mx-2">
+                                    <div className="nav-link">
+                                        <Button onClick={this.toggleModal} id="order-button" className="m-0 p-0">
+                                            <FontAwesomeIcon icon={faShoppingBasket} inverse size="md" /> Order
                                     </Button>
+                                </div>
                                 </NavItem>
                             </Nav>
                         </Collapse>
                     </div>
                 </Navbar>
-                <Jumbotron>
-                    <div className="container">
+                <Jumbotron className="m-0 p-0">
+                    <div className="m-0 p-0 container-fluid">
                         <div className="row row-header">
-                            <div className="col-12 col-sm-6">
-                                <h1>Ristorante con Fusion</h1>
-                                <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
+                            <div className="m-0 p-0 col-12">
+                                {/* <img src="/garniche_logo.png" className="img img-fluid" id="main-img"/> */}
+                                {/* <h1>GarNiche</h1>
+                                <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p> */}
                             </div>
                         </div>
                     </div>

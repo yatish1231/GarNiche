@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+
 .row-header{
   margin:0px auto;
   padding:0px auto;
@@ -10,16 +12,31 @@
   min-height:400px;
 }
 
+.header-component {
+  /* background: rgb(231,216,231);
+  background: linear-gradient(142deg, rgba(231,216,231,1) 31%, rgba(159,220,239,1) 100%); */
+  /* background-image: url("/garniche_logo.png");
+  background-blend-mode: lighten; */
+  background-color: #b4badf;
+}
+
+#main-description {
+  background: rgb(159,220,239);
+  background: linear-gradient(142deg, rgba(159,220,239,1) 0%, rgba(231,216,231,1) 100%);
+  height: 100%;
+  width: 100%;
+}
+
 .footer{
-  background-color: #D1C4E9;
+  /* background-color: #D1C4E9; */
+  background: rgb(231,216,231);
+  background: linear-gradient(142deg, rgba(231,216,231,1) 31%, rgba(159,220,239,1) 100%);
   margin:0px auto;
   padding: 20px 0px 20px 0px;
 }
 .jumbotron {
-  padding:70px 30px 70px 30px;
-  margin:0px auto;
-  background: #9575CD ;
-  color:floralwhite;
+  background: transparent ;
+  color: white;
 }
 
 address{
@@ -29,7 +46,21 @@ address{
 }
 
 .navbar-dark {
-  background-color: #512DA8;
+  /* background: linear-gradient(142deg, rgba(231,216,231,1) 31%, rgba(159,220,239,1) 100%); */
+  /* background: linear-gradient(142deg, rgba(231,216,231,1) 31%, rgba(159,220,239,1) 100%); */
+  background-color: #b4badf;
+  
+}
+
+#brand-text {
+  font-family: 'Sacramento', cursive;
+  font-size: 4rem;
+  color: whitesmoke;
+}
+
+#order-button {
+  border: none;
+  background: transparent;
 }
 
 .page-enter {
@@ -52,4 +83,17 @@ address{
   opacity: 0.01%;
   transform: translateX(100%);
   transition: all 300ms ease-out;
+}
+
+#main-img {
+  height: 85vh;
+  width: 100%;
+  object-fit: cover;
+  object-position: 0 39%;
+}
+
+#side-img {
+  height: 85vh;
+  width: 100%;
+  object-fit: contain;
 }

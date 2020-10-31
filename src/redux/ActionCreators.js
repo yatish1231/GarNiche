@@ -1,5 +1,6 @@
 import * as ACTION_TYPES from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl'
+import { DISHES  } from '../shared/dishes_garniche' 
 
 export const addComment = (comment) => ({
     type: ACTION_TYPES.ADD_COMMENT,
@@ -52,25 +53,29 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
 export const fetchDishes = () => (dispatch) => {
     dispatch(dishesLoading(true));
 
-    return fetch(baseUrl + 'dishes')
-        .then(response => {
-            if (response.ok) {
-                return response;
-            }
-            else {
-                var error = new Error('Error ' + response.state + ': ' + response.statusText)
-                error.response = response;
-                throw error;
-            }
-        },
-            error => {
-                var errmess = new Error(error.message);
-                throw errmess;
-            })
-        .then(response => response.json())
-        .then(dishes => dispatch(addDishes(dishes)))
-        .catch(error => dispatch(dishesFailed(error.message)))
+    return dispatch(addDishes(DISHES))
 }
+    // fetch(baseUrl + 'dishes')
+    //         .then(response => {
+    //             if (response.ok) {
+    //                 return response;
+    //             }
+    //             else {
+    //                 var error = new Error('Error ' + response.state + ': ' + response.statusText)
+    //                 error.response = response;
+    //                 throw error;
+    //             }
+    //         },
+    //             error => {
+    //                 var errmess = new Error(error.message);
+    //                 throw errmess;
+    //             })
+    //         .then(response => response.json())
+    //         .then(dishes => dispatch(addDishes(dishes)))
+    //         .catch(error => dispatch(dishesFailed(error.message)))
+    // }
+    
+    
 
 export const dishesLoading = () => ({
     type: ACTION_TYPES.DISHES_LOADING
